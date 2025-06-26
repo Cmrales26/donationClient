@@ -4,6 +4,7 @@ import CardCampaign from '@/components/CardCampaign';
 import NoAdminHide from '@/components/NoAdminHide';
 import { SelectCompaignStatus } from '@/components/selects/selectCompaignsStatus';
 import { config } from '@/constants/config';
+import { useAuth } from '@/context/AuthContext';
 import { Campaign } from '@/models/campaign';
 import { useEffect, useState } from 'react';
 
@@ -31,6 +32,13 @@ export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState('active');
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      window.location.assign('/auth/login');
+    }
+  }, [user]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');

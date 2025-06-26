@@ -11,6 +11,7 @@ import { CampaignFormData } from '@/models/campaign';
 import { useAuth } from '@/context/AuthContext';
 import { CampaignForm } from '../components/PageForm';
 import { SelectCompaignStatus } from '@/components/selects/selectCompaignsStatus';
+import NoAdminHide from '@/components/NoAdminHide';
 
 function useCampaignForm(onSuccess: () => void) {
   const [form, setForm] = useState<CampaignFormData>({
@@ -153,15 +154,17 @@ export default function EditCampaignPage() {
         actionClose={handleCancel}
       />
       <CampaignForm form={form} setForm={setForm} />
-      <div className='my-6 flex align-center gap-2.5 px-6'>
-        <h1 className='mt-1'>Cambiar Estado:</h1>
-        <SelectCompaignStatus
-          onChange={value =>
-            onChangeStatus(value as CampaignFormData['status'])
-          }
-          value={form.status ? form.status : 'active'}
-        />
-      </div>
+      <NoAdminHide>
+        <div className='my-6 flex align-center gap-2.5 px-6'>
+          <h1 className='mt-1'>Cambiar Estado:</h1>
+          <SelectCompaignStatus
+            onChange={value =>
+              onChangeStatus(value as CampaignFormData['status'])
+            }
+            value={form.status ? form.status : 'active'}
+          />
+        </div>
+      </NoAdminHide>
     </CardStyled>
   );
 }
