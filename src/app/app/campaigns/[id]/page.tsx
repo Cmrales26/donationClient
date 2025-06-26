@@ -80,10 +80,10 @@ function useCampaignForm(onSuccess: () => void) {
         body: JSON.stringify(form)
       });
       if (res.ok) {
-        alert('Se creó la campaña correctamente.');
+        alert('Se editó la campaña correctamente.');
         onSuccess();
       } else {
-        alert('Error al crear la campaña.');
+        alert('Error al editar la campaña.');
       }
     } catch (error: unknown) {
       if (error instanceof Error) alert(error.message);

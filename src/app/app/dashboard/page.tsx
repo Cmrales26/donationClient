@@ -7,23 +7,23 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, loaded } = useAuth();
   const [metrics, setMetrics] = useState<Metrics | null>(null);
 
   useEffect(() => {
-    if (!user) {
+    if (loaded && !user) {
       redirect('/auth/login');
-    } else if (user.role !== 'Administrador') {
+    } else if (user && user.role !== 'Administrador') {
       redirect('/app/campaigns');
     } else {
       fetchMetrics();
     }
-  }, [user]);
+  }, [user, loaded]);
 
   const fetchMetrics = async () => {
     try {
       if (!user) {
-        throw new Error('User is not authenticated');
+        return;
       }
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard/metrics`,

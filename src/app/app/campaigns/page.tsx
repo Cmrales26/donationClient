@@ -32,13 +32,13 @@ export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState('active');
-  const { user } = useAuth();
+  const { user, loaded } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (loaded && !user) {
       window.location.assign('/auth/login');
     }
-  }, [user]);
+  }, [user, loaded]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');

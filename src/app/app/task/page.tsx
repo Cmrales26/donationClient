@@ -218,13 +218,13 @@ const Task = () => {
   const [edited, setEdited] = useState(false);
   const [seletedTask, setSelectedTask] = useState<TaskType | null>(null);
   const [hideForm, setHideForm] = useState(false);
-  const { user } = useAuth();
+  const { user, loaded } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (loaded && !user) {
       window.location.href = '/auth/login';
     }
-  }, [user]);
+  }, [user, loaded]);
 
   useEffect(() => {
     fetchTasks(selectCampaign, taskStatus)
