@@ -109,6 +109,7 @@ export default function EditCampaignPage() {
   const { id } = useParams();
 
   const { form, setForm, loading, submit } = useCampaignForm(onSuccess);
+  const { user } = useAuth();
 
   const handleCancel = () => {
     router.push('/app/campaigns');
@@ -150,7 +151,7 @@ export default function EditCampaignPage() {
       <CardFormHeader
         title='Editar Campaña'
         loadingOk={loading}
-        actionOk={submit}
+        actionOk={user?.role === 'Administrador' ? submit : undefined}
         actionClose={handleCancel}
       />
       <CampaignForm form={form} setForm={setForm} />

@@ -20,6 +20,14 @@ const Navbar = () => {
       <div className='text-xl font-bold'>LearnDonation</div>
 
       <div className='flex gap-6 text-sm font-medium'>
+        {user.role === 'Administrador' && (
+          <Link
+            href='/app/dashboard'
+            className='hover:text-blue-400 transition'
+          >
+            Dashboard
+          </Link>
+        )}
         <Link href='/app/campaigns' className='hover:text-blue-400 transition'>
           Campañas
         </Link>

@@ -8,9 +8,15 @@ interface UserSelectProps {
   value: number;
   onChange: (value: number) => void;
   queryParams?: Record<string, string | number>;
+  disabled?: boolean;
 }
 
-const UserSelect = ({ value, queryParams, onChange }: UserSelectProps) => {
+const UserSelect = ({
+  value,
+  queryParams,
+  disabled = false,
+  onChange
+}: UserSelectProps) => {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,7 +59,12 @@ const UserSelect = ({ value, queryParams, onChange }: UserSelectProps) => {
               : user.username;
 
           return (
-            <option key={user.id} value={user.id} className='text-black'>
+            <option
+              disabled={disabled}
+              key={user.id}
+              value={user.id}
+              className='text-black'
+            >
               {displayName}
             </option>
           );

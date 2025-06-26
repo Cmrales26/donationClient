@@ -1,4 +1,5 @@
 import UserSelect from '@/components/selects/userSelect';
+import { useAuth } from '@/context/AuthContext';
 import { CampaignFormData } from '@/models/campaign';
 
 export function CampaignForm({
@@ -14,6 +15,7 @@ export function CampaignForm({
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   };
+  const { user } = useAuth();
 
   return (
     <form className='grid grid-cols-1 md:grid-cols-2 gap-4 px-6 text-white'>
@@ -22,6 +24,7 @@ export function CampaignForm({
         <input
           name='name'
           type='text'
+          disabled={!!user?.role && user.role !== 'Administrador'}
           value={form.name}
           onChange={handleChange}
           className='w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -31,6 +34,7 @@ export function CampaignForm({
         <UserSelect
           queryParams={{ user_grup: 2 }}
           value={form.user}
+          disabled={!!user?.role && user.role !== 'Administrador'}
           onChange={id => setForm(prev => ({ ...prev, user: id }))}
         />
       </div>
@@ -42,6 +46,7 @@ export function CampaignForm({
           onChange={handleChange}
           className='w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
           rows={8}
+          disabled={!!user?.role && user.role !== 'Administrador'}
         />
       </div>
       <div>
@@ -52,6 +57,7 @@ export function CampaignForm({
           value={form.start_date}
           onChange={handleChange}
           className='w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
+          disabled={!!user?.role && user.role !== 'Administrador'}
         />
       </div>
       <div>
@@ -62,6 +68,7 @@ export function CampaignForm({
           value={form.end_date}
           onChange={handleChange}
           className='w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
+          disabled={!!user?.role && user.role !== 'Administrador'}
         />
       </div>
     </form>

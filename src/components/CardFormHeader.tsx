@@ -13,6 +13,7 @@ const CardFormHeader = ({
   actionOk,
   loadingOk = false
 }: CardFormHeaderProps) => {
+  console.log(actionOk);
   return (
     <div className='flex justify-between items-center mb-6 p-6'>
       <h2 className='text-xl font-semibold text-white'>{title}</h2>
